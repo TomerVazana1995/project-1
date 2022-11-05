@@ -1,0 +1,319 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+
+
+
+
+
+    <meta charset="utf-8" />
+    <title></title>
+    <style>
+        #container {
+            text-align: center
+        }
+
+        img {
+            height: 300%;
+            width: 30%
+        }
+
+        td {
+            border: double;
+            text-align: center;
+            height:100px;
+            width:300px
+        }
+        td>img{
+            height:70%;
+            width:70%
+        }
+        #show {
+            text-align: center
+        }
+        #showIN>table{
+            text-align:center
+        }
+    </style>
+    <script>
+        markiv = [];
+        recipes = [];
+        ingredients = [];
+        function init() {
+            str = ` <img src="lets-cook-together-lettering-free-vector.jpg" /> <br />`;
+            str += `<table> <tr>`;
+
+            for (let i = 0; i < ingredients.length; i++) {
+                str += `<td>
+                                    <h5>${ingredients[i].name}:</h5>
+                                    <br />
+                                    ${ingredients[i].img}:
+                                    <br />
+                                    <h5>calories: ${ingredients[i].calories}</h5>
+                                    
+                                    </td>`;
+            }
+            str += `</tr> `;
+            
+            str += `<tr>`;
+            for (var i = 0; i < markiv.length; i++) {
+                str += ` <td>
+                                    <h5>${markiv[i].name}:</h5>
+                                    <br/>
+                                     ${markiv[i].img}:
+                                    <br/>
+                                    <h5>calories: ${markiv[i].calories}</h5>
+                                    
+                                    </td>`;
+            }
+            str += `</tr></table>`;
+            document.getElementById("rend").innerHTML = str;
+        }
+        function closed() {
+            str = "";
+            document.getElementById("rend").innerHTML = str;
+            document.getElementById("showIN").innerHTML = str;
+            init();
+        }
+        function recipe() {
+            str1 = "";
+            str1 += `<h5>Recipe name:</h5>
+
+                                    <input type="text" id="nameR" />
+                                    <br />
+                                    <br />
+                                    <h5>Recipe cooking method:</h5>
+
+                                    <input type="text" id="cookR" />
+                                    <br />
+                                    <br />
+                                    <h5>Recipe cooking time:</h5>
+
+                                    <input type="text" id="timeR" />
+                                    <br />
+                                    <br />`;
+
+            str1 += ` <button type="button" onclick="creat()">creat</button>
+                                     <button type="button" onclick="closed()">close</button>`;
+            document.getElementById("rend").innerHTML = str1;
+            str11 = "";
+            str11 += `<table> <tr>`;
+
+            for (let i = 0; i < ingredients.length; i++) {
+                str11 += `<td>
+                                    <h5>${ingredients[i].name}:</h5>
+                                    <br />
+                                    ${ingredients[i].img}:
+                                    <br />
+                                    <h5>calories: ${ingredients[i].calories}:</h5>
+                                    <br />
+                                    <input type="checkbox" id=${i} /><br />
+                                    </td>`;
+            }
+            str11 += `</tr> `;
+           
+            str11 += `<tr>`;
+            for (var i = 0; i < markiv.length; i++) {
+                str11 += ` <td>
+                                    <h5>${markiv[i].name}:</h5>
+                                    <br/>
+                                     ${markiv[i].img}:
+                                    <br/>
+                                    <h5>calories: ${markiv[i].calories}</h5>
+                                     <br />
+                                    <input type="checkbox" id=${markiv[i].id} /><br />                                    </td>`;
+            }
+            str11 += `</tr></table>`;
+            document.getElementById("show").innerHTML = str11;
+        }
+        
+        function creat() {
+
+            thatingred = [];
+            thatingred.length = 0;
+            name = document.getElementById("nameR").value;
+          
+            cook = document.getElementById("cookR").value;
+           timing = document.getElementById("timeR").value;
+            id = recipes.length;
+            for (let i = 0; i < ingredients.length; i++) {
+                if (document.getElementById(i).checked == true) {
+                    thatingred.push(i);
+                }
+            }
+            let total = 0;
+            for (let i = 0; i < thatingred.length; i++) {
+                total += ingredients[thatingred[i]].calories;
+            }
+            var NewCard = new Dish(name, thatingred, timing, cook, total);
+            recipes.push(NewCard);
+            str11 = "";
+            str11 += `<table> <tr>`;
+            
+           
+            for (let i = 0; i < recipes.length; i++) {
+                count = 0;
+                str11 += `<td>
+                                    <h5>${recipes[i].name}</h5>
+                                    <br />
+                                    cooking method:
+                                    <br />
+                                     ${recipes[i].cookingMethod}
+                                      <br />
+                                     <h5>cooking time: ${recipes[i].time}</h5>
+                                     <br />`;
+                for (var j = 0; j < recipes[i].ingred.length; j++) {
+                    if (ingredients[recipes[i].ingred[j]].id == 2) {
+                        count=count+2;
+                    }
+                    if (ingredients[recipes[i].ingred[j]].id == 3) {
+                        count = count + 3;
+                    }
+                    if (ingredients[recipes[i].ingred[j]].id == 4) {
+                        count = count + 4;
+                    }
+                }
+                if (count==0) {
+                    str11 += `<img src="thin.jpg" />`;
+                }
+                if (count == 2) {
+                    str11 += `<img src="m.jpg" />`;
+                }
+                if (count == 3) {
+                    str11 += `<img src="o.jpg" />`;
+                }
+                if (count == 4) {
+                    str11 += `<img src="t.jpg" />`;
+                }
+                if (count == 5) {
+                    str11 += `<img src="om.jpg" />`;
+                }
+                if (count == 6) {
+                    str11 += `<img src="tm.jpg" />`;
+                }
+                if (count == 7) {
+                    str11 += `<img src="ot.jpg" />`;
+                }
+                if (count == 9) {
+                    str11 += `<img src="otm.jpg" />`;
+                }
+
+               
+                                     
+                                    str11+=`<br />
+                                    <h5>calories: ${recipes[i].total}</h5>
+                                    <br />
+                                    <button id=${i} onclick="ShowIng(${i})" type="button" >Show Ingredients</button>
+                                    </td>`;
+            }
+            str11 += `</tr> </table>`;
+            document.getElementById("show").innerHTML = str11;
+        }
+        g = 4;
+        function creatIN() {
+            idI = g;
+            nameI = document.getElementById("nameI").value;
+            imgI = document.getElementById("imgI").value;
+            calI = document.getElementById("calI").value;
+            var newIngred = new Ingredient(idI, nameI, imgI, calI);
+            markiv.push(newIngred);
+            closed();
+            
+        }
+        function ShowIng(k) {
+           
+            
+            str22 = `<hr />`;
+            str22 += `<table><tr>`;
+            for (var i = 0; i < recipes[k].ingred.length; i++) {
+                str22 += ` <td>
+                                    <h5>${ingredients[recipes[k].ingred[i]].name}:</h5>
+                                    <br/>
+                                     ${ ingredients[recipes[k].ingred[i]].img }:
+                                    <br/>
+                                    <h5>calories: ${ingredients[recipes[k].ingred[i]].calories}</h5>
+                                    
+                                    </td>`;
+            }
+            str22 += `</tr>`;
+                     str22+=`<tr>`;
+            for (var i = 0; i < markiv.length; i++) {
+                str22 += ` <td>
+                                    <h5>${markiv[i].name}:</h5>
+                                    <br/>
+                                     <img src="${markiv[i].img}".jpg" />
+                                     
+                                    <br/>
+                                    <h5>calories: ${markiv[i].calories}</h5>
+                                    
+                                    </td>`;
+            }
+            str22 += `</tr></table>`;
+
+
+            str22 += `<button type="button" onclick="closed()">clos</button>`;
+            document.getElementById("showIN").innerHTML = str22;
+            
+        }
+
+        function ingradiant() {
+            str2 = "";
+            str2 += `<h5>Ingredient name:</h5>
+
+                                    <input type="text" id="nameI" />
+                                    <br />
+                                    <br />
+                                    <h5>Ingredient Image (url):</h5>
+
+                                    <input type="text" id="imgI" />
+                                    <br />
+                                    <br />
+                                    <h5>Ingredient Calories:</h5>
+
+                                    <input type="text" id="calI" />
+                                    <br />
+                                    `;
+            str2 += ` <button type="button" onclick="creatIN()">creat</button>
+                                     <button type="button" onclick="closed()">close</button>`;
+
+            document.getElementById("rend").innerHTML = str2;
+        }
+       
+        
+    </script>
+    <script src="Data.js"></script>
+    
+</head>
+<body onload="init()">
+    <div id="container">
+        <div>
+            <h1>PapaJones</h1>
+        </div>
+        <div>
+            <button type="button" onclick="recipe()">Build your pizza</button>
+            <br />
+            <br />
+            <button type="button" onclick="ingradiant()">new Ingrediant</button>
+        </div>
+        <br />
+        <div id="rend">
+
+
+
+
+
+        </div>
+        <hr />
+        <div id="show">
+
+        </div>
+        <div id="showIN">
+
+        </div>
+
+    </div>
+    <!--//<h5>Recipe Image (url):</h5>
+
+    //<input type="text" id="urlR" />-->
+</body>
+</html>
